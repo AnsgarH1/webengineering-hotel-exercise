@@ -11,6 +11,7 @@ import { getHotelImage } from './api';
 
 
 function App() {
+  const toast = useToast()
 
 
   const [adults, setAdults] = useState(2)
@@ -25,13 +26,17 @@ function App() {
       .then(images => {
         console.log("images:" + images)
         setImageURls(images)
+        toast({ title: "Bilder wurden im Hintergrund geladen!", status: "info" })
       })
-      .catch(e => console.log(e))
+      .catch(e => {
+        toast({ title: "Bilder konnten im Hintergrund nicht geladen werden!", status: "warning" })
+        console.log(e)
+      })
   }, [])
 
   return (
     <Center >
-      <VStack p="3"  width="80%" maxW="1400px" >
+      <VStack p="3" width="80%" maxW="1400px" >
 
         <Heading>Hotel Buchungen</Heading>
 
