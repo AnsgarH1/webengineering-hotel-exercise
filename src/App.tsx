@@ -1,10 +1,11 @@
-import { Box, Button, Center, Divider, Flex, Heading, HStack, Spinner, Text, useToast } from '@chakra-ui/react';
-import { useState } from 'react';
+import { Box, Button, Center, Divider, Flex, Heading, HStack, Spinner, Text, useToast, VStack } from '@chakra-ui/react';
+import { useEffect, useState } from 'react';
 import { useRooms } from './hooks';
 import DateInput from './components/DateInput/DateInput';
 import PersonInput from './components/PersonInput/PersonInput';
 import Room from './components/Room/Room';
 import { RoomType } from './types';
+import { getHotelImage } from './api';
 
 
 
@@ -17,32 +18,44 @@ function App() {
   const [duration, setDuration] = useState(2)
 
   const { rooms, loadRooms, isLoading, errorMessage } = useRooms(adults, children, duration)
+  const [imageURLs, setImageURls] = useState<String[]>()
 
+  useEffect(() => {
+    getHotelImage("hotelroom")
+      .then(images => {
+        console.log("images:" + images)
+        setImageURls(images)
+      })
+      .catch(e => console.log(e))
+  }, [])
 
   return (
-    <Box p="3" >
-      <Center>
+    <Center >
+      <VStack p="3"  width="80%" maxW="1400px" >
+
         <Heading>Hotel Buchungen</Heading>
-      </Center>
-      <HStack justifyContent="space-around" py="4" m="1rem" >
-        <DateInput duration={duration} setDuration={(newDuration) => { setDuration(newDuration) }} />
 
-        <HStack>
-          <PersonInput variant="ADULT" value={adults} onIncrease={() => setAdults(adults => adults + 1)} onDecrease={() => setAdults(adults => adults - 1)} />
-          <PersonInput variant="CHILD" value={children} onIncrease={() => setChildren(children => children + 1)} onDecrease={() => setChildren(children => children - 1)} />
+        <HStack justifyContent="space-around" py="4" m="1rem" >
+          <DateInput duration={duration} setDuration={(newDuration) => { setDuration(newDuration) }} />
+
+          <HStack>
+            <PersonInput variant="ADULT" value={adults} onIncrease={() => setAdults(adults => adults + 1)} onDecrease={() => setAdults(adults => adults - 1)} />
+            <PersonInput variant="CHILD" value={children} onIncrease={() => setChildren(children => children + 1)} onDecrease={() => setChildren(children => children - 1)} />
+          </HStack>
+          <Button onClick={() => loadRooms()} disabled={isLoading} size="lg" colorScheme="teal">Suche</Button>
         </HStack>
-        <Button onClick={() => loadRooms()} disabled={isLoading} size="lg" colorScheme="teal">Suche</Button>
-      </HStack>
-      <Divider />
+        <Divider />
 
-      <Heading mt="8" mb="4" size="md" textAlign="center">Verfügbare Zimmer:</Heading>
-      {isLoading ? <Center><Spinner /></Center> :
-        <Flex wrap="wrap" justify="space-around">
-          {rooms ? rooms.map(r => <Room room={r} />) : <Text>keine Zimmer geladen</Text>}
-          {errorMessage.length > 0 && <Text>{errorMessage}</Text>}
-        </Flex>}
+        <Heading mt="8" mb="4" size="md" textAlign="center">Verfügbare Zimmer:</Heading>
+        {isLoading ? <Center><Spinner /></Center> :
+          <Flex wrap="wrap" justify="space-around"  >
+            {rooms ? rooms.map((r, index) => <Room room={r} image={imageURLs ? imageURLs[index] as string : null} />) : <Text>keine Zimmer geladen</Text>}
+          </Flex>}
 
-    </Box>
+        {errorMessage.length > 0 && <Text>{errorMessage}</Text>}
+
+      </VStack >
+    </Center>
   );
 }
 

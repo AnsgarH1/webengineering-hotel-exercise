@@ -29,7 +29,7 @@ const useRooms = (adults: number = 2, children: number = 0, duration: number = 1
         })
     }
     useEffect(() => {
-        loadRooms()
+      //  loadRooms()
     }, [])
 
     return { isLoading, rooms, loadRooms, errorMessage }

@@ -1,5 +1,5 @@
 import React from 'react'
-import { Box, Center, Container, Flex, Heading, Icon, Stat, StatHelpText, StatLabel, StatNumber, Text } from '@chakra-ui/react'
+import { Box, Center, Container, Flex, Heading, Icon, Image, Skeleton, Stat, StatHelpText, StatLabel, StatNumber, Text, VStack } from '@chakra-ui/react'
 import { MdBedroomChild, MdKingBed, MdSingleBed } from "react-icons/md"
 import { GiBunkBeds } from "react-icons/gi"
 
@@ -14,7 +14,7 @@ function Bed({ forChildren, doubleBed }: { forChildren: boolean, doubleBed: bool
 
 }
 
-function Room({ room }: { room: RoomType }) {
+function Room({ room, image }: { room: RoomType, image: string | null }) {
     const { name, beds, price, amount } = room
     return (
         <Box w="500px" borderWidth='1px' borderRadius='lg' py="4" px="4px" my="6px" key={room.name}>
@@ -22,12 +22,14 @@ function Room({ room }: { room: RoomType }) {
                 <Heading size="md">{name}</Heading>
             </Box>
             <Flex>
-                <Box w="250px" h="150px" bgColor="lightgrey" mt="4px"></Box>
+                {image ?
+                    <Image w="250px" h="150px" mt="4px" src={image} /> :
+                    <Skeleton w="250px" h="150px" bgColor="lightgrey" mt="4px" />}
                 <Flex w="400px" direction="column" justify="space-between" >
                     <Heading textAlign="center" size="xs">{price}€ pro Nacht</Heading>
-                    <Box>
+                    <VStack>
                         {room.beds.map(({ forChildren, doubleBed }) => <Bed doubleBed={doubleBed} forChildren={forChildren} />)}
-                    </Box>
+                    </VStack>
                     <Text textAlign="center">Nur noch  {amount} Zimmer verfügbar!</Text>
 
                 </Flex>
