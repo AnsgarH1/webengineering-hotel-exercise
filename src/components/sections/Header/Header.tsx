@@ -1,5 +1,6 @@
 import { Box, Center, Heading, HStack } from '@chakra-ui/react'
 import React from 'react'
+import { Link } from 'react-router-dom'
 import Auth from '../../ui/Auth/Auth'
 
 function Header() {
@@ -7,7 +8,9 @@ function Header() {
     <HStack justify="space-between" px="4" bgColor="blue.500" h="24">
       <Box></Box>
       <Center h="full">
-        <Heading color="white">Hotel Buchungen</Heading>
+        <Link to="/">
+          <Heading color="white">Hotel Buchungen</Heading>
+        </Link>
       </Center>
       <Box justifySelf="end">
         <Auth />

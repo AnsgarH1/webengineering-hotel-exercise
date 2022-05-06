@@ -33,7 +33,7 @@ function Room({ room, onSelect, onlyView = false }: { room: RoomType, onSelect: 
                     <Box>
                         {price}€
                         <Box as='span' color='gray.600' fontSize='sm'>
-                            / night
+                            /pro Nacht
                         </Box>
                     </Box>
                     <Wrap h="32">

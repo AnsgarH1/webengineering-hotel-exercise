@@ -1,12 +1,21 @@
-import { Box, Center, Divider, Flex, FormControl, FormHelperText, FormLabel, Heading, HStack, Input, InputGroup, InputLeftAddon, Select, VStack } from '@chakra-ui/react'
+import React, { useEffect } from 'react'
+
+import { RoomType } from '../../utils/types'
+
+import { Box, Center, Divider, Flex, FormControl, FormHelperText, FormLabel, Heading, HStack, Input, InputGroup, InputLeftAddon, Select, Text, useToast, VStack } from '@chakra-ui/react'
 import { Field, Form, Formik, useFormik } from 'formik'
-import React from 'react'
-import { RoomType } from '../../../utils/types'
-import Room from '../../ui/Room/Room'
 
+import { useNavigate } from 'react-router-dom'
+import { useBookingContext } from '../../utils/context/BookingContext'
 
+import Room from '../../components/ui/Room/Room'
 
-const Booking = ({ room }: { room: RoomType }) => {
+const BookingPage = () => {
+
+  const { selectedRoom } = useBookingContext()
+  const toast = useToast()
+  const navigate = useNavigate()
+
 
   return (
     <VStack py="16" >
@@ -14,10 +23,10 @@ const Booking = ({ room }: { room: RoomType }) => {
       <Center>
         <Heading>Vervollständige deine Buchung!</Heading>
       </Center>
-
-      <Center w="50%">
-        <Room room={room} onSelect={() => { }} onlyView={true} />
-      </Center>
+      {selectedRoom &&
+        <Center w="50%">
+          <Room room={selectedRoom} onSelect={() => { }} onlyView={true} />
+        </Center>}
       <Box w="sm">
         <Heading size="md">Deine Daten:</Heading>
         <Formik initialValues={{
@@ -51,8 +60,8 @@ const Booking = ({ room }: { room: RoomType }) => {
               <FormControl isRequired>
                 <FormLabel>Telefonnummer</FormLabel>
                 <InputGroup>
-                <InputLeftAddon children="+49" />
-                  <Field as={Input} id="phone" name="phone" type="tel"  />
+                  <InputLeftAddon children="+49" />
+                  <Field as={Input} id="phone" name="phone" type="tel" />
                 </InputGroup>
               </FormControl>
 
@@ -65,4 +74,4 @@ const Booking = ({ room }: { room: RoomType }) => {
   )
 }
 
-export default Booking
+export default BookingPage
