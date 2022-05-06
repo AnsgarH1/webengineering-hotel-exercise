@@ -4,3 +4,10 @@ export type RoomType = {
     beds: { forChildren: boolean, doubleBed: boolean }[];
     price: number;
 }
+
+export type UserType = {
+    id: string,
+    firstName: string,
+    lastName: string,
+
+}
