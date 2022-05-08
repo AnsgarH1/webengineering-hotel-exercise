@@ -17,7 +17,7 @@ function Bed({ forChildren, doubleBed }: { forChildren: boolean, doubleBed: bool
 function Room({ room, onSelect, onlyView = false }: { room: RoomType, onSelect: (arg0: RoomType) => void, onlyView?: boolean }) {
     const { name, beds, price, amount } = room
     return (
-        <Box m="4" maxW='sm' borderWidth='1px' borderRadius='lg' overflow='hidden' key={room.name}>
+        <Box m="4" maxW='sm' borderWidth='1px' borderRadius='lg' overflow='hidden' key={room.name} bgColor="gray.50">
             <Image src="https://images.unsplash.com/photo-1618773928121-c32242e63f39?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2340&q=80" />
             <Flex p="6" direction="column">
                 <Box flex="1">

@@ -5,7 +5,7 @@ import Auth from '../../ui/Auth/Auth'
 
 function Header() {
   return (
-    <HStack justify="space-between" px="4" bgColor="blue.500" h="24">
+    <HStack justify="space-between" px="4" bgColor="blue.800" minH="24">
       <Box></Box>
       <Center h="full">
         <Link to="/">

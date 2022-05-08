@@ -5,7 +5,7 @@ import Header from '../sections/Header/Header'
 
 function Layout({ children }: { children: ReactNode }) {
     return (
-        <Flex justify="space-between" direction="column" h="100vh" bgColor="gray.50">
+        <Flex justify="space-between" direction="column" h="100vh" >
             <Header />
 
             <Box  flex="1">
