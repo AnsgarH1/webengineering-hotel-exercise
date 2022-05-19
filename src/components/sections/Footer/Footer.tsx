@@ -6,7 +6,7 @@ function Footer() {
     <Box minH="16" bgColor="blue.800">
       <Center h="full">
 
-        <Text color="white" > Copyright 2022 Hotel-Buchungen</Text>
+        <Text color="white" > Copyright 2022 Hotel-Buchungen 1</Text>
       </Center>
     </Box>
   )
